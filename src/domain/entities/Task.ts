@@ -5,6 +5,7 @@ export class Task {
 	private isDone: boolean;
 
 	constructor(id: string, name: string, deadline: Date) {
+		if (id === "") throw new Error("Task id cannot be empty");
 		if (name === "") throw new Error("Task name cannot be empty");
 		if (deadline.getTime() <= Date.now())
 			throw new Error("Task deadline must be a future date");

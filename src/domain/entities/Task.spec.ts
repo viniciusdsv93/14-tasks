@@ -10,6 +10,15 @@ describe("Task Entity", () => {
 		expect(newTask).toBeInstanceOf(Task);
 	});
 
+	test("Should throw an error if id provided is an empty string", () => {
+		const id = "";
+		const name = "Task sample";
+		const deadline = new Date(Date.now() + 86400 * 1000);
+		expect(() => new Task(id, name, deadline)).toThrowError(
+			"Task id cannot be empty"
+		);
+	});
+
 	test("Should throw an error if name provided is an empty string", () => {
 		const id = randomUUID();
 		const name = "";
