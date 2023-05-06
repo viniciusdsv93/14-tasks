@@ -27,9 +27,10 @@ describe("Create Task Usecase", () => {
 		};
 	};
 
+	const name = "Task sample";
+	const deadline = new Date(Date.now() + 86400 * 1000);
+
 	test("Should call task repository", async () => {
-		const name = "Task sample";
-		const deadline = new Date(Date.now() + 86400 * 1000);
 		const { createTask, taskRepository } = makeSut();
 		const taskRepositorySpy = jest.spyOn(taskRepository, "save");
 		await createTask.execute({ name, deadline });
@@ -37,8 +38,6 @@ describe("Create Task Usecase", () => {
 	});
 
 	test("Should return an instance of Task on success", async () => {
-		const name = "Task sample";
-		const deadline = new Date(Date.now() + 86400 * 1000);
 		const { createTask } = makeSut();
 		const newTask = await createTask.execute({ name, deadline });
 		expect(newTask).toBeInstanceOf(Task);
