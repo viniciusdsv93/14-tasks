@@ -35,4 +35,11 @@ describe("Task Entity", () => {
 		const newTask = new Task(name, deadline);
 		expect(newTask.getDeadline()).toBe(deadline);
 	});
+
+	test("Should return false when getIsDone method is called after creating an instance", () => {
+		const name = "Task sample";
+		const deadline = new Date(Date.now() + 86400 * 1000);
+		const newTask = new Task(name, deadline);
+		expect(newTask.getIsDone()).toBe(false);
+	});
 });
