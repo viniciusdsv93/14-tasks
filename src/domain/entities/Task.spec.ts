@@ -8,9 +8,17 @@ describe("Task Entity", () => {
 		expect(newTask).toBeInstanceOf(Task);
 	});
 
-	test("Should throw an error name provided is an empty string", () => {
+	test("Should throw an error if name provided is an empty string", () => {
 		const name = "";
 		const deadline = new Date(Date.now() + 86400 * 1000);
 		expect(() => new Task(name, deadline)).toThrowError("Task name cannot be empty");
+	});
+
+	test("Should throw an error if deadline provided is on the past", () => {
+		const name = "Task sample";
+		const deadline = new Date(Date.now() - 86400 * 1000);
+		expect(() => new Task(name, deadline)).toThrowError(
+			"Task deadline must be a future date"
+		);
 	});
 });
