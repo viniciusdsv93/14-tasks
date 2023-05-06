@@ -9,4 +9,12 @@ export class Task {
 		this.name = name;
 		this.deadline = deadline;
 	}
+
+	getName() {
+		return this.name;
+	}
+
+	getDeadline() {
+		return this.deadline;
+	}
 }
