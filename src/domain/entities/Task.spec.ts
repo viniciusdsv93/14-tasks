@@ -21,4 +21,18 @@ describe("Task Entity", () => {
 			"Task deadline must be a future date"
 		);
 	});
+
+	test("Should return task name when getName method is called", () => {
+		const name = "Task sample";
+		const deadline = new Date(Date.now() + 86400 * 1000);
+		const newTask = new Task(name, deadline);
+		expect(newTask.getName()).toBe(name);
+	});
+
+	test("Should return task deadline when getDeadline method is called", () => {
+		const name = "Task sample";
+		const deadline = new Date(Date.now() + 86400 * 1000);
+		const newTask = new Task(name, deadline);
+		expect(newTask.getDeadline()).toBe(deadline);
+	});
 });
