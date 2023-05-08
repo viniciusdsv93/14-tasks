@@ -14,7 +14,8 @@ export class CreateTask implements ICreateTask {
 		const id = randomUUID();
 		const { name, deadline } = createTaskDto;
 		const newTask = new Task(id, name, deadline);
-		await this.taskRepository.save(newTask);
+		const savedTask = await this.taskRepository.save(newTask);
+		if (!savedTask) throw new Error("Could not save entity on database");
 		return newTask;
 	}
 }

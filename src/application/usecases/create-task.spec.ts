@@ -10,8 +10,8 @@ describe("Create Task Usecase", () => {
 
 	const makeTaskRepositoryStub = (): ITaskRepository => {
 		class ITaskRepositoryStub implements ITaskRepository {
-			async save(task: Task): Promise<void> {
-				return;
+			async save(task: Task): Promise<boolean> {
+				return true;
 			}
 		}
 		return new ITaskRepositoryStub();
@@ -41,5 +41,14 @@ describe("Create Task Usecase", () => {
 		const { createTask } = makeSut();
 		const newTask = await createTask.execute({ name, deadline });
 		expect(newTask).toBeInstanceOf(Task);
+	});
+
+	test("Should throw an error if repository throws", async () => {
+		const { createTask, taskRepository } = makeSut();
+		jest.spyOn(taskRepository, "save").mockImplementationOnce(() => {
+			return new Promise((resolve) => resolve(false));
+		});
+		const promise = createTask.execute({ name, deadline });
+		expect(promise).rejects.toThrowError("Could not save entity on database");
 	});
 });
